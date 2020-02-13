@@ -2,6 +2,8 @@
 
 Very simple batching API for Go.
 
+This repo came out of a [tutorial blog post](https://pace.dev/blog/2020/02/13/batching-operations-in-go-by-mat-ryer).
+
 ## Install
 
 You might as well just copy the [batch.go](https://github.com/pacedotdev/batch/blob/master/batch.go) file into your own project (and the [batch_test.go](https://github.com/pacedotdev/batch/blob/master/batch_test.go) while you're at it for future generations) rather than adding a dependency.

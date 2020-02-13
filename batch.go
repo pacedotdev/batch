@@ -22,9 +22,6 @@ func All(count, batchSize int, eachFn BatchFunc) error {
 			end = count - 1
 		}
 		err := eachFn(i, end)
-		if err == Abort {
-			return nil
-		}
 		if err != nil {
 			return err
 		}

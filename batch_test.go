@@ -4,8 +4,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/pacedotdev/batch"
 	"github.com/matryer/is"
+	"github.com/pacedotdev/batch"
 )
 
 func Test(t *testing.T) {
@@ -104,7 +104,7 @@ func TestAbort(t *testing.T) {
 		})
 		return batch.Abort
 	})
-	is.NoErr(err)
+	is.Equal(err, batch.Abort)
 	is.Equal(len(ranges), 1)
 	is.Equal(ranges[0].start, 0)
 	is.Equal(ranges[0].end, 9)

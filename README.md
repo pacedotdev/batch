@@ -4,12 +4,12 @@ Very simple batching API for Go.
 
 ## Install
 
-You might as well just copy the [batch.go](https://github.com/matryer/batch/blob/master/batch.go) file into your own project (and the [batch_test.go](https://github.com/matryer/batch/blob/master/batch_test.go) while you're at it for future generations) rather than adding a dependency.
+You might as well just copy the [batch.go](https://github.com/pacedotdev/batch/blob/master/batch.go) file into your own project (and the [batch_test.go](https://github.com/pacedotdev/batch/blob/master/batch_test.go) while you're at it for future generations) rather than adding a dependency.
 
 But it is maintained as a Go module which you can get with:
 
 ```bash
-go get github.com/matryer/batch
+go get github.com/pacedotdev/batch
 ```
 
 ## Usage
@@ -18,7 +18,7 @@ Import it:
 
 ```go
 import (
-	"github.com/matryer/batch"
+	"github.com/pacedotdev/batch"
 )
 ```
 
@@ -43,7 +43,7 @@ if err != nil {
 
 In this example, if we got `105` items, the `performSomeRemoteThing` function would get called eleven times, each time with a different page of `10` items (the `batchSize`) except the last time, when it would be a slice of the remaining five items.
 
-The mechanics are [fairly simple](https://github.com/matryer/batch/blob/master/batch.go), but the code is encapsulated and well tested.
+The mechanics are [fairly simple](https://github.com/pacedotdev/batch/blob/master/batch.go), but the code is encapsulated and well tested.
 
 ### Using context for cancellation
 

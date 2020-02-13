@@ -1,4 +1,4 @@
-module github.com/matryer/batch
+module github.com/pacedotdev/batch
 
 go 1.13
 

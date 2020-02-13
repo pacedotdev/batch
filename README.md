@@ -44,3 +44,28 @@ if err != nil {
 In this example, if we got `105` items, the `performSomeRemoteThing` function would get called eleven times, each time with a different page of `10` items (the `batchSize`) except the last time, when it would be a slice of the remaining five items.
 
 The mechanics are [fairly simple](https://github.com/matryer/batch/blob/master/batch.go), but the code is encapsulated and well tested.
+
+### Using context for cancellation
+
+You can use a `context.Context` for cancellation by adding a check into the body of the `BatchFunc`. The following code will cancel batching if the user aborts the HTTP request.
+
+```go
+ctx := r.Context()
+items, err := getAllItemsFromRequest(r)
+if err != nil {
+	return errors.Wrap(err, "getAllItemsFromRequest")
+}
+batchSize := 10
+err := batch.All(len(items), batchSize, func(start, end int) error {
+	if err := ctx.Err(); err != nil {
+		return err
+	}
+	batchItems := items[start:end]
+	if err := performSomeRemoteThing(ctx, batchItems); err != nil {
+		return errors.Wrap(err, "performSomeRemoteThing")
+	}
+})
+if err != nil {
+	return err
+}
+```

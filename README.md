@@ -41,4 +41,6 @@ if err != nil {
 }
 ```
 
+In this example, if we got `105` items, the `performSomeRemoteThing` function would get called eleven times, each time with a different page of `10` items (the `batchSize`) except the last time, when it would be a slice of the remaining five items.
+
 The mechanics are [fairly simple](https://github.com/matryer/batch/blob/master/batch.go), but the code is encapsulated and well tested.

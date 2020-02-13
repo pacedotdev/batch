@@ -4,8 +4,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/pacedotdev/batch"
 	"github.com/matryer/is"
+	"github.com/pacedotdev/batch"
 )
 
 func Test(t *testing.T) {
@@ -15,7 +15,7 @@ func Test(t *testing.T) {
 		start, end int
 	}
 	var ranges []r
-	err := batch.All(100, 10, func(start, end int) error {
+	n, err := batch.All(100, 10, func(start, end int) error {
 		ranges = append(ranges, r{
 			start: start,
 			end:   end,
@@ -23,7 +23,7 @@ func Test(t *testing.T) {
 		return nil
 	})
 	is.NoErr(err)
-
+	is.Equal(n, 100)
 	is.Equal(len(ranges), 10)
 	is.Equal(ranges[0].start, 0)
 	is.Equal(ranges[0].end, 9)
@@ -54,7 +54,7 @@ func TestHalfPages(t *testing.T) {
 		start, end int
 	}
 	var ranges []r
-	err := batch.All(15, 10, func(start, end int) error {
+	n, err := batch.All(15, 10, func(start, end int) error {
 		ranges = append(ranges, r{
 			start: start,
 			end:   end,
@@ -62,6 +62,7 @@ func TestHalfPages(t *testing.T) {
 		return nil
 	})
 	is.NoErr(err)
+	is.Equal(n, 15)
 	is.Equal(len(ranges), 2)
 	is.Equal(ranges[0].start, 0)
 	is.Equal(ranges[0].end, 9)
@@ -77,7 +78,7 @@ func TestTinyPages(t *testing.T) {
 		start, end int
 	}
 	var ranges []r
-	err := batch.All(1, 10, func(start, end int) error {
+	n, err := batch.All(1, 10, func(start, end int) error {
 		ranges = append(ranges, r{
 			start: start,
 			end:   end,
@@ -85,6 +86,7 @@ func TestTinyPages(t *testing.T) {
 		return nil
 	})
 	is.NoErr(err)
+	is.Equal(n, 1)
 	is.Equal(len(ranges), 1)
 	is.Equal(ranges[0].start, 0)
 	is.Equal(ranges[0].end, 0)
@@ -97,14 +99,15 @@ func TestAbort(t *testing.T) {
 		start, end int
 	}
 	var ranges []r
-	err := batch.All(20, 10, func(start, end int) error {
+	n, err := batch.All(20, 10, func(start, end int) error {
 		ranges = append(ranges, r{
 			start: start,
 			end:   end,
 		})
 		return batch.Abort
 	})
-	is.NoErr(err)
+	is.Equal(err, batch.Abort)
+	is.Equal(n, 0)
 	is.Equal(len(ranges), 1)
 	is.Equal(ranges[0].start, 0)
 	is.Equal(ranges[0].end, 9)
@@ -118,7 +121,7 @@ func TestErr(t *testing.T) {
 	}
 	var ranges []r
 	errTest := errors.New("something went wrong")
-	err := batch.All(20, 10, func(start, end int) error {
+	_, err := batch.All(20, 10, func(start, end int) error {
 		ranges = append(ranges, r{
 			start: start,
 			end:   end,

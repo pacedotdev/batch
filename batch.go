@@ -20,7 +20,7 @@ func All(count, batchSize int, eachFn BatchFunc) error {
 			j = count
 		}
 		err := eachFn(i, j)
-		if err == errors.New("done") {
+		if err == Abort {
 			return nil
 		}
 		if err != nil {

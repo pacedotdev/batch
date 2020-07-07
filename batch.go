@@ -14,21 +14,18 @@ var Abort = errors.New("done")
 // All calls eachFn for all items
 // Returns any error from eachFn except for Abort it returns nil.
 func All(count, batchSize int, eachFn BatchFunc) error {
-	i := 0
-	for i < count {
-		end := i + batchSize - 1
-		if end > count-1 {
-			// passed end, so set to end item
-			end = count - 1
+	for i := 0; i < count; i += batchSize {
+		j := i + batchSize
+		if j > count {
+			j = count
 		}
-		err := eachFn(i, end)
+		err := eachFn(i, j)
 		if err == Abort {
 			return nil
 		}
 		if err != nil {
 			return err
 		}
-		i = end + 1
 	}
 	return nil
 }

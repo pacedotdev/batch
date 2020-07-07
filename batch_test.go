@@ -4,8 +4,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/pacedotdev/batch"
 	"github.com/matryer/is"
+	"github.com/pacedotdev/batch"
 )
 
 func Test(t *testing.T) {
@@ -26,25 +26,25 @@ func Test(t *testing.T) {
 
 	is.Equal(len(ranges), 10)
 	is.Equal(ranges[0].start, 0)
-	is.Equal(ranges[0].end, 9)
+	is.Equal(ranges[0].end, 10)
 	is.Equal(ranges[1].start, 10)
-	is.Equal(ranges[1].end, 19)
+	is.Equal(ranges[1].end, 20)
 	is.Equal(ranges[2].start, 20)
-	is.Equal(ranges[2].end, 29)
+	is.Equal(ranges[2].end, 30)
 	is.Equal(ranges[3].start, 30)
-	is.Equal(ranges[3].end, 39)
+	is.Equal(ranges[3].end, 40)
 	is.Equal(ranges[4].start, 40)
-	is.Equal(ranges[4].end, 49)
+	is.Equal(ranges[4].end, 50)
 	is.Equal(ranges[5].start, 50)
-	is.Equal(ranges[5].end, 59)
+	is.Equal(ranges[5].end, 60)
 	is.Equal(ranges[6].start, 60)
-	is.Equal(ranges[6].end, 69)
+	is.Equal(ranges[6].end, 70)
 	is.Equal(ranges[7].start, 70)
-	is.Equal(ranges[7].end, 79)
+	is.Equal(ranges[7].end, 80)
 	is.Equal(ranges[8].start, 80)
-	is.Equal(ranges[8].end, 89)
+	is.Equal(ranges[8].end, 90)
 	is.Equal(ranges[9].start, 90)
-	is.Equal(ranges[9].end, 99)
+	is.Equal(ranges[9].end, 100)
 }
 
 func TestHalfPages(t *testing.T) {
@@ -64,9 +64,9 @@ func TestHalfPages(t *testing.T) {
 	is.NoErr(err)
 	is.Equal(len(ranges), 2)
 	is.Equal(ranges[0].start, 0)
-	is.Equal(ranges[0].end, 9)
+	is.Equal(ranges[0].end, 10)
 	is.Equal(ranges[1].start, 10)
-	is.Equal(ranges[1].end, 14) // final index should be trimmed
+	is.Equal(ranges[1].end, 15) // final index should be trimmed
 
 }
 
@@ -87,7 +87,7 @@ func TestTinyPages(t *testing.T) {
 	is.NoErr(err)
 	is.Equal(len(ranges), 1)
 	is.Equal(ranges[0].start, 0)
-	is.Equal(ranges[0].end, 0)
+	is.Equal(ranges[0].end, 1)
 }
 
 func TestAbort(t *testing.T) {

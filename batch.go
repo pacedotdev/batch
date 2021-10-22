@@ -21,12 +21,13 @@ func All(count, batchSize int, eachFn BatchFunc) error {
 			// passed end, so set to end item
 			end = count - 1
 		}
-		err := eachFn(i, end)
-		if err == Abort {
-			return nil
-		}
-		if err != nil {
-			return err
+		if err := eachFn(i, end); err != nil {
+			if err == Abort {
+				return nil
+			}
+			if err != nil {
+				return err
+			}
 		}
 		i = end + 1
 	}

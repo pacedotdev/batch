@@ -7,7 +7,7 @@ import "errors"
 // indicates it was deliberate, and not an error case.
 type BatchFunc func(start, end int) error
 
-// Abort is a sentinal error as defined by Dave Cheney (@davecheney) which
+// Abort is a sentinel error as defined by Dave Cheney (@davecheney) which
 // indicates a batch operation should abort early.
 var Abort = errors.New("done")
 
